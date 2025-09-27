@@ -21,4 +21,21 @@ public class TaskDao {
     public List<Task> findAllTasks() {
         return new ArrayList<>(tasks); //Так защищённее, ибо копия, которую можно менять без урона оригиналу
     }
+
+    public void saveTask(Task task) {
+        tasks.add(task);
+    }
+
+    public void finishTask(int id) {
+        for (Task task : tasks) {
+            if (task.getId() == id) {
+                task.setState(State.DONE);
+                break;
+            }
+        }
+    }
+
+    public void deleteTask(int id) {
+        tasks.removeIf(task -> task.getId() == id);
+    }
 }
