@@ -2,5 +2,5 @@ package com.apress.entity;
 
 public enum State {
     DONE,
-    IN_PROGRESS
+    ACTIVE
 }

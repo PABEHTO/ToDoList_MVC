@@ -12,8 +12,8 @@ import java.util.List;
 public class TaskDao {
     private final List<Task> tasks = new ArrayList<Task>(
     Arrays.asList(
-            new Task("Buy a ticket", State.IN_PROGRESS),
-            new Task("Wipe the table", State.IN_PROGRESS),
+            new Task("Buy a ticket", State.ACTIVE),
+            new Task("Wipe the table", State.ACTIVE),
             new Task("Fill the water barrel", State.DONE)
             )
     );

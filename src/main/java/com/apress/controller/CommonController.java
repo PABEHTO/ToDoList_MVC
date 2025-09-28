@@ -2,6 +2,7 @@ package com.apress.controller;
 
 import com.apress.entity.State;
 import com.apress.entity.Task;
+import com.apress.entity.dto.TaskContainerDto;
 import com.apress.service.TaskService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -22,13 +23,11 @@ public class CommonController {
     }
 
     @RequestMapping(value = "/home", method = RequestMethod.GET)
-    public String getMainPage(Model model) {
-        List<Task> tasks =  taskService.findAllTasks();
-        int doneTasksQuantity = (int)tasks.stream().filter(t -> t.getState().equals(State.DONE)).count();
-        int activeTasksQuantity = (int)tasks.stream().filter(t -> t.getState().equals(State.IN_PROGRESS)).count();
-        model.addAttribute("tasks", tasks);
-        model.addAttribute("numberOfDoneTasks", doneTasksQuantity);
-        model.addAttribute("numberOfActiveTasks", activeTasksQuantity);
+    public String getMainPage(Model model, @RequestParam(name = "filterParam", required = false) String filterParam) {
+        TaskContainerDto container = taskService.findAllTasks(filterParam);
+        model.addAttribute("tasks", container.getTasks());
+        model.addAttribute("numberOfDoneTasks", container.getDoneTasksQuantity());
+        model.addAttribute("numberOfActiveTasks", container.getActiveTasksQuantity());
         return "main-page";
     }
 

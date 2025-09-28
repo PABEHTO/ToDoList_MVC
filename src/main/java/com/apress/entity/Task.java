@@ -14,7 +14,7 @@ public class Task {
 
     public Task(String name) {
         this.name = name;
-        this.state = State.IN_PROGRESS;
+        this.state = State.ACTIVE;
     }
 
     public String getName() {

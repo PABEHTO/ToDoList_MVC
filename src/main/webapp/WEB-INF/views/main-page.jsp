@@ -18,17 +18,17 @@
                 </div>
             </div>
             <div class="filter-container">
-                <form class="filter-form">
+                <form class="filter-form" action="/home" method="get">
                     <div class="filter-form__input">
-                        <input type="radio" id="filter-form__status_all" name="filter" value="all" checked>
+                        <input type="radio" id="filter-form__status_all" name="filterParam" value="all" checked>
                         <label for="filter-form__status_all">All</label>
                     </div>
                     <div class="filter-form__input">
-                        <input type="radio" id="filter-form__status_active" name="filter" value="active">
+                        <input type="radio" id="filter-form__status_active" name="filterParam" value="active">
                         <label for="filter-form__status_active">Active</label>
                     </div>
                     <div class="filter-form__input">
-                        <input type="radio" id="filter-form__status_done" name="filter" value="done">
+                        <input type="radio" id="filter-form__status_done" name="filterParam" value="done">
                         <label for="filter-form__status_done">Done</label>
                     </div>
                     <button type="submit">Apply</button>
