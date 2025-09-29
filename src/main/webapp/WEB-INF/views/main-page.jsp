@@ -73,9 +73,17 @@
                             </div>
                         </c:forEach>
                     </c:when>
+
+                    <c:when test="${fn:toLowerCase(param.filterParam) == 'done'}">
+                        <div class="task">There are no DONE tasks!</div>
+                    </c:when>
+                    <c:when test="${fn:toLowerCase(param.filterParam) == 'active'}">
+                        <div class="task">There are no ACTIVE tasks! You can add one</div>
+                    </c:when>
                     <c:otherwise>
-                        <div class="task">List is empty. You can add a task</div>
+                        <div class="task">There are no any tasks! You can add one</div>
                     </c:otherwise>
+
                 </c:choose>
             </div>
             <div class="management-container">
