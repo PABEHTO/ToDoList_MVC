@@ -1,7 +1,5 @@
 package com.apress.controller;
 
-import com.apress.entity.State;
-import com.apress.entity.Task;
 import com.apress.entity.dto.TaskContainerDto;
 import com.apress.service.TaskService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,7 +9,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import java.util.List;
 
 @Controller
 public class CommonController {
@@ -43,14 +40,14 @@ public class CommonController {
     }
 
     @RequestMapping(value = "/finish-task", method = RequestMethod.POST)
-    public String finishTask(@RequestParam int id) {
+    public String finishTask(@RequestParam int id, @RequestParam(name="filterParam", required = false) String filterParam) {
         taskService.finishTask(id);
-        return "redirect:/home";
+        return "redirect:/home" + (filterParam != null || filterParam.isBlank() ? "?filterParam=" +filterParam : "");
     }
 
     @RequestMapping(value="/delete-task", method = RequestMethod.POST)
-    public String deleteTask(@RequestParam int id) {
+    public String deleteTask(@RequestParam int id, @RequestParam(name="filterParam", required = false) String filterParam) {
         taskService.deleteTask(id);
-        return "redirect:/home";
+        return "redirect:/home" + (filterParam != null || filterParam.isBlank() ? "?filterParam=" +filterParam : "");
     }
 }

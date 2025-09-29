@@ -1,5 +1,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <html>
 <head>
     <title>ToDo List</title>
@@ -20,15 +21,15 @@
             <div class="filter-container">
                 <form class="filter-form" action="/home" method="get">
                     <div class="filter-form__input">
-                        <input type="radio" id="filter-form__status_all" name="filterParam" value="all" checked>
+                        <input type="radio" id="filter-form__status_all" name="filterParam" value="all" checked ${empty param.filterParam or (fn:toLowerCase(param.filterParam) != 'done' and fn:toLowerCase(param.filterParam) != 'active') ? 'checked' : ''}>
                         <label for="filter-form__status_all">All</label>
                     </div>
                     <div class="filter-form__input">
-                        <input type="radio" id="filter-form__status_active" name="filterParam" value="active">
+                        <input type="radio" id="filter-form__status_active" name="filterParam" value="active" ${fn:toLowerCase(param.filterParam) == 'active' ? 'checked' : ''}>
                         <label for="filter-form__status_active">Active</label>
                     </div>
                     <div class="filter-form__input">
-                        <input type="radio" id="filter-form__status_done" name="filterParam" value="done">
+                        <input type="radio" id="filter-form__status_done" name="filterParam" value="done" ${fn:toLowerCase(param.filterParam) == 'done' ? 'checked' : ''}>
                         <label for="filter-form__status_done">Done</label>
                     </div>
                     <button type="submit">Apply</button>
@@ -56,6 +57,7 @@
                                                 </svg>
                                             </button>
                                             <input type="hidden" name="id" value="${task.id}"/>
+                                            <input type="hidden" name="filterParam" value="${param.filterParam}"/>
                                         </form>
                                     </c:if>
                                     <form class="task__controls-form" action="/delete-task" method="post">
@@ -65,6 +67,7 @@
                                             </svg>
                                         </button>
                                         <input type="hidden" name="id" value="${task.id}"/>
+                                        <input type="hidden" name="filterParam" value="${param.filterParam}"/>
                                     </form>
                                 </div>
                             </div>
