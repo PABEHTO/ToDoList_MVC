@@ -1,11 +1,19 @@
 package com.apress.entity;
 
-public class Task {
-    private final String name;
-    private State state;
+import javax.persistence.*;
 
-    private static int counter;
-    private final int id = counter++;
+@Entity
+@Table(name = "records")
+public class Task {
+    @Column(name = "name", nullable = false, length = 100)
+    private String name;
+    @Column(name = "state", nullable = false)
+    private State state;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
+
+    public Task() {}
 
     public Task(String name, State state) {
         this.name = name;
