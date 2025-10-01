@@ -1,10 +1,10 @@
 package com.apress.config;
 
+import org.apache.commons.dbcp2.BasicDataSource;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
-import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
@@ -37,13 +37,30 @@ public class HibernateConfig {
     @Value("${hibernate.hbm2ddl.auto}")
     private String hibernateHbm2ddl;
 
+    @Value("${db.connection-pool.initial-size}")
+    private int initialSize;
+
+    @Value("${db.connection-pool.min-idle}")
+    private int minIdle;
+
+    @Value("${db.connection-pool.max-idle}")
+    private int maxIdle;
+
+    @Value("${db.connection-pool.max-total}")
+    private int maxTotal;
+
     @Bean
     public DataSource dataSource() {
-        DriverManagerDataSource dataSource = new DriverManagerDataSource();
+        BasicDataSource dataSource = new BasicDataSource();
         dataSource.setDriverClassName(databaseDriver);
         dataSource.setUrl(databaseUrl);
         dataSource.setUsername(databaseUserName);
         dataSource.setPassword(databasePassword);
+
+        dataSource.setInitialSize(initialSize);
+        dataSource.setMinIdle(minIdle);
+        dataSource.setMaxIdle(maxIdle);
+        dataSource.setMaxTotal(maxTotal);
         return dataSource;
     }
 
